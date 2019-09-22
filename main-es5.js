@@ -4967,12 +4967,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm5/index.js");
 /* harmony import */ var _nebular_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nebular/auth */ "./node_modules/@nebular/auth/fesm5/index.js");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/jarwis.service */ "./src/app/services/jarwis.service.ts");
 
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
+
 
 
 
@@ -5015,6 +5017,8 @@ var AppModule = /** @class */ (function () {
                     strategies: [
                         _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbPasswordAuthStrategy"].setup({
                             name: 'email',
+                            // baseEndpoint: 'http://localhost:8080/api/auth/',
+                            baseEndpoint: 'http://api.mainahighwayhotel.com/api/auth/',
                             token: {
                                 class: _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbAuthJWTToken"],
                                 key: 'token',
@@ -5031,6 +5035,9 @@ var AppModule = /** @class */ (function () {
                         },
                     },
                 }),
+            ],
+            providers: [
+                _services_jarwis_service__WEBPACK_IMPORTED_MODULE_11__["JarwisService"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
         })
@@ -5083,6 +5090,86 @@ var AuthGuard = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_nebular_auth__WEBPACK_IMPORTED_MODULE_3__["NbAuthService"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], AuthGuard);
     return AuthGuard;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/jarwis.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/jarwis.service.ts ***!
+  \********************************************/
+/*! exports provided: JarwisService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JarwisService", function() { return JarwisService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var JarwisService = /** @class */ (function () {
+    function JarwisService(http) {
+        this.http = http;
+        /*private baseUrl = 'http://localhost:8080/api';
+        private webUrl = 'http://localhost:8080'; */
+        // Internet Points
+        this.baseUrl = 'http://api.mainahighwayhotel.com/api';
+        this.webUrl = 'http://api.mainahighwayhotel.com/';
+    }
+    JarwisService.prototype.signup = function (data) {
+        return this.http.post(this.baseUrl + "/auth/signup", data);
+    };
+    JarwisService.prototype.login = function (data) {
+        return this.http.post(this.baseUrl + "/auth/login", data);
+    };
+    JarwisService.prototype.sendPasswordResetLink = function (data) {
+        return this.http.post(this.baseUrl + "/sendPasswordResetLink", data);
+    };
+    JarwisService.prototype.changePassword = function (data) {
+        return this.http.post(this.baseUrl + "/resetPassword", data);
+    };
+    // Index URI
+    JarwisService.prototype.getURI = function (url) {
+        return this.http.get(this.baseUrl + "/" + url);
+    };
+    // Create URI
+    JarwisService.prototype.createURI = function (url) {
+        return this.http.get(this.baseUrl + "/" + url + "/create");
+    };
+    // Store URI
+    JarwisService.prototype.postURI = function (url, data) {
+        return this.http.post(this.baseUrl + "/" + url, data);
+    };
+    // Show URI
+    JarwisService.prototype.showURI = function (url, id) {
+        return this.http.get(this.baseUrl + "/" + url + "/" + id);
+    };
+    // Edit URI
+    JarwisService.prototype.editURI = function (url, id) {
+        return this.http.get(this.baseUrl + "/" + url + "/" + id + "/edit");
+    };
+    // Update URI
+    JarwisService.prototype.putURI = function (url, id, data) {
+        return this.http.put(this.baseUrl + "/" + url + "/" + id, data);
+    };
+    // Delete URI
+    JarwisService.prototype.deleteURI = function (url, id) {
+        return this.http.delete(this.baseUrl + "/" + url + "/" + id);
+    };
+    // Edit URI
+    JarwisService.prototype.editWebURI = function (url, id) {
+        return this.http.get(this.webUrl + "/" + url + "/" + id + "/edit");
+    };
+    JarwisService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], JarwisService);
+    return JarwisService;
 }());
 
 

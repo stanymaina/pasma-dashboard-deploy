@@ -47,13 +47,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
 /* harmony import */ var _core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../@core/data/smart-table */ "./src/app/@core/data/smart-table.ts");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+
 
 
 
 
 var CategoriesComponent = /** @class */ (function () {
-    function CategoriesComponent(service) {
+    function CategoriesComponent(service, Jarwis) {
         this.service = service;
+        this.Jarwis = Jarwis;
         this.settings = {
             add: {
                 addButtonContent: '<i class="nb-plus"></i>',
@@ -100,6 +103,18 @@ var CategoriesComponent = /** @class */ (function () {
         var data = this.service.getData();
         this.source.load(data);
     }
+    CategoriesComponent.prototype.ngOnInit = function () {
+        // this.getProducts();
+        // this.getOrders();
+        this.getCategories();
+        /* this.productForm = new FormGroup({
+            'name': new FormControl(),
+            'category': new FormControl(),
+            'notes': new FormControl(),
+            'price': new FormControl(),
+            'quantity': new FormControl()
+        }); */
+    };
     CategoriesComponent.prototype.onDeleteConfirm = function (event) {
         if (window.confirm('Are you sure you want to delete?')) {
             event.confirm.resolve();
@@ -108,13 +123,75 @@ var CategoriesComponent = /** @class */ (function () {
             event.confirm.reject();
         }
     };
+    CategoriesComponent.prototype.getCategories = function () {
+        var _this = this;
+        var url = 'categories';
+        this.Jarwis.getURI(url).subscribe(function (categories) {
+            _this.categories = categories;
+            console.log(categories);
+        });
+    };
+    CategoriesComponent.prototype.showProduct = function (id) {
+        var _this = this;
+        var url = 'products';
+        console.log('Get Product ' + id);
+        // return this.http.get('http://laravel-api.testing/api/product/' + id).subscribe(product => {
+        this.Jarwis.showURI(url, id).subscribe(function (product) {
+            _this.product = product;
+            _this.productForm.patchValue({
+                id: _this.product.product.product_id,
+                name: _this.product.product.product_name,
+                category: _this.product.product.product_category,
+                notes: _this.product.product.product_notes,
+                price: _this.product.product.selling_price,
+                quantity: _this.product.product.product_quantity
+            });
+        });
+    };
+    CategoriesComponent.prototype.deleteProduct = function (id) {
+        var url = 'products';
+        console.log('Delete Product id ' + id);
+        // this.http.delete('http://laravel-api.testing/api/product/' + id).subscribe(res => {
+        this.Jarwis.deleteURI(url, id).subscribe(function (res) {
+            console.log('Product Deleted and refresh Table');
+            // this.getProducts();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
+    CategoriesComponent.prototype.putProduct = function (id) {
+        var url = 'products';
+        console.log('Update Product id ' + id);
+        // this.http.put('http://laravel-api.testing/api/product/' + id, this.productForm.value).subscribe(res => {
+        this.Jarwis.putURI(url, id, this.productForm.value).subscribe(function (res) {
+            // $('#product-modal').hide();
+            console.log('Product Updated and refresh table');
+            // this.getProducts();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
+    // Add a New Product
+    // storeProduct(productForm: NgForm) {
+    CategoriesComponent.prototype.storeProduct = function (productForm) {
+        var url = 'products';
+        // console.log('Form successful submit.');
+        // console.log(productForm.value);
+        this.Jarwis.postURI(url, productForm.value).subscribe(function (res) {
+            // this.getProducts();
+            productForm.reset();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
     CategoriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'ngx-categories',
             template: __webpack_require__(/*! raw-loader!./categories.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/categories/categories.component.html"),
             styles: [__webpack_require__(/*! ./categories.component.scss */ "./src/app/custom/hotel/categories/categories.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"],
+            _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__["JarwisService"]])
     ], CategoriesComponent);
     return CategoriesComponent;
 }());
@@ -292,19 +369,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
 /* harmony import */ var _core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../@core/data/smart-table */ "./src/app/@core/data/smart-table.ts");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+
 
 
 
 
 var RoomsComponent = /** @class */ (function () {
-    function RoomsComponent(service) {
+    function RoomsComponent(service, Jarwis) {
         this.service = service;
+        this.Jarwis = Jarwis;
         this.settings = {
-            add: {
-                addButtonContent: '<i class="nb-plus"></i>',
-                createButtonContent: '<i class="nb-checkmark"></i>',
-                cancelButtonContent: '<i class="nb-close"></i>',
-            },
+            add: false,
+            // add: {
+            //   addButtonContent: '<i class="nb-plus"></i>',
+            //   createButtonContent: '<i class="nb-checkmark"></i>',
+            //   cancelButtonContent: '<i class="nb-close"></i>',
+            // },
             edit: {
                 editButtonContent: '<i class="nb-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
@@ -345,6 +426,9 @@ var RoomsComponent = /** @class */ (function () {
         var data = this.service.getData();
         this.source.load(data);
     }
+    RoomsComponent.prototype.ngOnInit = function () {
+        this.getRooms();
+    };
     RoomsComponent.prototype.onDeleteConfirm = function (event) {
         if (window.confirm('Are you sure you want to delete?')) {
             event.confirm.resolve();
@@ -353,13 +437,75 @@ var RoomsComponent = /** @class */ (function () {
             event.confirm.reject();
         }
     };
+    RoomsComponent.prototype.getRooms = function () {
+        var _this = this;
+        var url = 'rooms';
+        this.Jarwis.getURI(url).subscribe(function (rooms) {
+            _this.rooms = rooms;
+            console.log(rooms);
+        });
+    };
+    RoomsComponent.prototype.showProduct = function (id) {
+        var _this = this;
+        var url = 'products';
+        console.log('Get Product ' + id);
+        // return this.http.get('http://laravel-api.testing/api/product/' + id).subscribe(product => {
+        this.Jarwis.showURI(url, id).subscribe(function (product) {
+            _this.product = product;
+            _this.productForm.patchValue({
+                id: _this.product.product.product_id,
+                name: _this.product.product.product_name,
+                category: _this.product.product.product_category,
+                notes: _this.product.product.product_notes,
+                price: _this.product.product.selling_price,
+                quantity: _this.product.product.product_quantity
+            });
+        });
+    };
+    RoomsComponent.prototype.deleteProduct = function (id) {
+        var url = 'products';
+        console.log('Delete Product id ' + id);
+        // this.http.delete('http://laravel-api.testing/api/product/' + id).subscribe(res => {
+        this.Jarwis.deleteURI(url, id).subscribe(function (res) {
+            console.log('Product Deleted and refresh Table');
+            // this.getProducts();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
+    RoomsComponent.prototype.putProduct = function (id) {
+        var url = 'products';
+        console.log('Update Product id ' + id);
+        // this.http.put('http://laravel-api.testing/api/product/' + id, this.productForm.value).subscribe(res => {
+        this.Jarwis.putURI(url, id, this.productForm.value).subscribe(function (res) {
+            // $('#product-modal').hide();
+            console.log('Product Updated and refresh table');
+            // this.getProducts();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
+    // Add a New Product
+    // storeProduct(productForm: NgForm) {
+    RoomsComponent.prototype.storeProduct = function (productForm) {
+        var url = 'products';
+        // console.log('Form successful submit.');
+        // console.log(productForm.value);
+        this.Jarwis.postURI(url, productForm.value).subscribe(function (res) {
+            // this.getProducts();
+            productForm.reset();
+        }, function (err) {
+            console.log('Error occured');
+        });
+    };
     RoomsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
             selector: 'ngx-rooms',
             template: __webpack_require__(/*! raw-loader!./rooms.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/rooms/rooms.component.html"),
             styles: [__webpack_require__(/*! ./rooms.component.scss */ "./src/app/custom/hotel/rooms/rooms.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"],
+            _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__["JarwisService"]])
     ], RoomsComponent);
     return RoomsComponent;
 }());

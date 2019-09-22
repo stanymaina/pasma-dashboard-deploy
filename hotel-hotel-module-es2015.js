@@ -47,13 +47,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
 /* harmony import */ var _core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../@core/data/smart-table */ "./src/app/@core/data/smart-table.ts");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+
 
 
 
 
 let CategoriesComponent = class CategoriesComponent {
-    constructor(service) {
+    constructor(service, Jarwis) {
         this.service = service;
+        this.Jarwis = Jarwis;
         this.settings = {
             add: {
                 addButtonContent: '<i class="nb-plus"></i>',
@@ -100,6 +103,18 @@ let CategoriesComponent = class CategoriesComponent {
         const data = this.service.getData();
         this.source.load(data);
     }
+    ngOnInit() {
+        // this.getProducts();
+        // this.getOrders();
+        this.getCategories();
+        /* this.productForm = new FormGroup({
+            'name': new FormControl(),
+            'category': new FormControl(),
+            'notes': new FormControl(),
+            'price': new FormControl(),
+            'quantity': new FormControl()
+        }); */
+    }
     onDeleteConfirm(event) {
         if (window.confirm('Are you sure you want to delete?')) {
             event.confirm.resolve();
@@ -108,6 +123,65 @@ let CategoriesComponent = class CategoriesComponent {
             event.confirm.reject();
         }
     }
+    getCategories() {
+        const url = 'categories';
+        this.Jarwis.getURI(url).subscribe(categories => {
+            this.categories = categories;
+            console.log(categories);
+        });
+    }
+    showProduct(id) {
+        const url = 'products';
+        console.log('Get Product ' + id);
+        // return this.http.get('http://laravel-api.testing/api/product/' + id).subscribe(product => {
+        this.Jarwis.showURI(url, id).subscribe(product => {
+            this.product = product;
+            this.productForm.patchValue({
+                id: this.product.product.product_id,
+                name: this.product.product.product_name,
+                category: this.product.product.product_category,
+                notes: this.product.product.product_notes,
+                price: this.product.product.selling_price,
+                quantity: this.product.product.product_quantity
+            });
+        });
+    }
+    deleteProduct(id) {
+        const url = 'products';
+        console.log('Delete Product id ' + id);
+        // this.http.delete('http://laravel-api.testing/api/product/' + id).subscribe(res => {
+        this.Jarwis.deleteURI(url, id).subscribe(res => {
+            console.log('Product Deleted and refresh Table');
+            // this.getProducts();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
+    putProduct(id) {
+        const url = 'products';
+        console.log('Update Product id ' + id);
+        // this.http.put('http://laravel-api.testing/api/product/' + id, this.productForm.value).subscribe(res => {
+        this.Jarwis.putURI(url, id, this.productForm.value).subscribe(res => {
+            // $('#product-modal').hide();
+            console.log('Product Updated and refresh table');
+            // this.getProducts();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
+    // Add a New Product
+    // storeProduct(productForm: NgForm) {
+    storeProduct(productForm) {
+        const url = 'products';
+        // console.log('Form successful submit.');
+        // console.log(productForm.value);
+        this.Jarwis.postURI(url, productForm.value).subscribe(res => {
+            // this.getProducts();
+            productForm.reset();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
 };
 CategoriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -115,7 +189,8 @@ CategoriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./categories.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/categories/categories.component.html"),
         styles: [__webpack_require__(/*! ./categories.component.scss */ "./src/app/custom/hotel/categories/categories.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"],
+        _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__["JarwisService"]])
 ], CategoriesComponent);
 
 
@@ -282,19 +357,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
 /* harmony import */ var _core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../@core/data/smart-table */ "./src/app/@core/data/smart-table.ts");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+
 
 
 
 
 let RoomsComponent = class RoomsComponent {
-    constructor(service) {
+    constructor(service, Jarwis) {
         this.service = service;
+        this.Jarwis = Jarwis;
         this.settings = {
-            add: {
-                addButtonContent: '<i class="nb-plus"></i>',
-                createButtonContent: '<i class="nb-checkmark"></i>',
-                cancelButtonContent: '<i class="nb-close"></i>',
-            },
+            add: false,
+            // add: {
+            //   addButtonContent: '<i class="nb-plus"></i>',
+            //   createButtonContent: '<i class="nb-checkmark"></i>',
+            //   cancelButtonContent: '<i class="nb-close"></i>',
+            // },
             edit: {
                 editButtonContent: '<i class="nb-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
@@ -335,6 +414,9 @@ let RoomsComponent = class RoomsComponent {
         const data = this.service.getData();
         this.source.load(data);
     }
+    ngOnInit() {
+        this.getRooms();
+    }
     onDeleteConfirm(event) {
         if (window.confirm('Are you sure you want to delete?')) {
             event.confirm.resolve();
@@ -343,6 +425,65 @@ let RoomsComponent = class RoomsComponent {
             event.confirm.reject();
         }
     }
+    getRooms() {
+        const url = 'rooms';
+        this.Jarwis.getURI(url).subscribe(rooms => {
+            this.rooms = rooms;
+            console.log(rooms);
+        });
+    }
+    showProduct(id) {
+        const url = 'products';
+        console.log('Get Product ' + id);
+        // return this.http.get('http://laravel-api.testing/api/product/' + id).subscribe(product => {
+        this.Jarwis.showURI(url, id).subscribe(product => {
+            this.product = product;
+            this.productForm.patchValue({
+                id: this.product.product.product_id,
+                name: this.product.product.product_name,
+                category: this.product.product.product_category,
+                notes: this.product.product.product_notes,
+                price: this.product.product.selling_price,
+                quantity: this.product.product.product_quantity
+            });
+        });
+    }
+    deleteProduct(id) {
+        const url = 'products';
+        console.log('Delete Product id ' + id);
+        // this.http.delete('http://laravel-api.testing/api/product/' + id).subscribe(res => {
+        this.Jarwis.deleteURI(url, id).subscribe(res => {
+            console.log('Product Deleted and refresh Table');
+            // this.getProducts();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
+    putProduct(id) {
+        const url = 'products';
+        console.log('Update Product id ' + id);
+        // this.http.put('http://laravel-api.testing/api/product/' + id, this.productForm.value).subscribe(res => {
+        this.Jarwis.putURI(url, id, this.productForm.value).subscribe(res => {
+            // $('#product-modal').hide();
+            console.log('Product Updated and refresh table');
+            // this.getProducts();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
+    // Add a New Product
+    // storeProduct(productForm: NgForm) {
+    storeProduct(productForm) {
+        const url = 'products';
+        // console.log('Form successful submit.');
+        // console.log(productForm.value);
+        this.Jarwis.postURI(url, productForm.value).subscribe(res => {
+            // this.getProducts();
+            productForm.reset();
+        }, err => {
+            console.log('Error occured');
+        });
+    }
 };
 RoomsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -350,7 +491,8 @@ RoomsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./rooms.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/rooms/rooms.component.html"),
         styles: [__webpack_require__(/*! ./rooms.component.scss */ "./src/app/custom/hotel/rooms/rooms.component.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"],
+        _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__["JarwisService"]])
 ], RoomsComponent);
 
 
