@@ -4895,6 +4895,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _core_utils_analytics_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./@core/utils/analytics.service */ "./src/app/@core/utils/analytics.service.ts");
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm5/index.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _nebular_auth__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @nebular/auth */ "./node_modules/@nebular/auth/fesm5/index.js");
 
 /**
  * @license
@@ -4905,12 +4906,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var AppComponent = /** @class */ (function () {
-    function AppComponent(analytics, router, menuService) {
+    function AppComponent(analytics, router, menuService, authService) {
         var _this = this;
         this.analytics = analytics;
         this.router = router;
         this.menuService = menuService;
+        this.authService = authService;
         this.menuService.onItemClick()
             .subscribe(function (event) {
             _this.onContecxtItemSelection(event.item.title);
@@ -4924,7 +4927,8 @@ var AppComponent = /** @class */ (function () {
             this.router.navigate(['auth/logout']);
         }
         else if (title === 'Log out') {
-            this.router.navigate(['auth/logout']);
+            this.authService.logout('email');
+            this.router.navigate(['/auth/login']);
         }
     };
     AppComponent.prototype.ngOnInit = function () {
@@ -4937,7 +4941,8 @@ var AppComponent = /** @class */ (function () {
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_utils_analytics_service__WEBPACK_IMPORTED_MODULE_2__["AnalyticsService"],
             _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"],
-            _nebular_theme__WEBPACK_IMPORTED_MODULE_3__["NbMenuService"]])
+            _nebular_theme__WEBPACK_IMPORTED_MODULE_3__["NbMenuService"],
+            _nebular_auth__WEBPACK_IMPORTED_MODULE_5__["NbAuthService"]])
     ], AppComponent);
     return AppComponent;
 }());
@@ -4968,12 +4973,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm5/index.js");
 /* harmony import */ var _nebular_auth__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @nebular/auth */ "./node_modules/@nebular/auth/fesm5/index.js");
 /* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
 
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
+
 
 
 
@@ -5017,8 +5024,8 @@ var AppModule = /** @class */ (function () {
                     strategies: [
                         _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbPasswordAuthStrategy"].setup({
                             name: 'email',
-                            // baseEndpoint: 'http://localhost:8080/api/auth/',
                             baseEndpoint: 'http://api.mainahighwayhotel.com/api/auth/',
+                            // baseEndpoint: 'http://api.mainahighwayhotel.com/api/auth/',
                             token: {
                                 class: _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbAuthJWTToken"],
                                 key: 'token',
@@ -5037,7 +5044,19 @@ var AppModule = /** @class */ (function () {
                 }),
             ],
             providers: [
-                _services_jarwis_service__WEBPACK_IMPORTED_MODULE_11__["JarwisService"]
+                _services_jarwis_service__WEBPACK_IMPORTED_MODULE_11__["JarwisService"],
+                _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_12__["AuthGuard"],
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbAuthJWTInterceptor"], multi: true },
+                {
+                    provide: _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NB_AUTH_TOKEN_INTERCEPTOR_FILTER"],
+                    useValue: function (req) {
+                        if (req.url === 'http://api.mainahighwayhotel.com/api/auth/refresh-token') {
+                            return true;
+                        }
+                        return false;
+                    },
+                },
+                { provide: _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HTTP_INTERCEPTORS"], useClass: _nebular_auth__WEBPACK_IMPORTED_MODULE_10__["NbAuthJWTInterceptor"], multi: true },
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
         })
@@ -5113,13 +5132,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var JarwisService = /** @class */ (function () {
+    // Internet Points
+    /*private baseUrl = 'http://api.mainahighwayhotel.com/api';
+    private webUrl = 'http://api.mainahighwayhotel.com/'; */
     function JarwisService(http) {
         this.http = http;
-        /*private baseUrl = 'http://localhost:8080/api';
-        private webUrl = 'http://localhost:8080'; */
-        // Internet Points
-        this.baseUrl = 'http://api.mainahighwayhotel.com/api';
-        this.webUrl = 'http://api.mainahighwayhotel.com/';
+        this.baseUrl = 'http://localhost:8080/api';
+        this.webUrl = 'http://localhost:8080';
     }
     JarwisService.prototype.signup = function (data) {
         return this.http.post(this.baseUrl + "/auth/signup", data);

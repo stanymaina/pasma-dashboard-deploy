@@ -1,5 +1,16 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["hotel-hotel-module"],{
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/bookings/bookings.component.html":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/custom/hotel/bookings/bookings.component.html ***!
+  \*****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nb-card>\n  <nb-card-header>\n    Customers\n  </nb-card-header>\n\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"bookings\" (deleteConfirm)=\"onDeleteConfirm($event)\" (createConfirm)=\"addRecord($event)\" (editConfirm)=\"updateRecord($event)\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/categories/categories.component.html":
 /*!*********************************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/custom/hotel/categories/categories.component.html ***!
@@ -11,6 +22,28 @@ module.exports = "<nb-card>\n  <nb-card-header>\n    Room Categories\n  </nb-car
 
 /***/ }),
 
+/***/ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/countries/countries.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/custom/hotel/countries/countries.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nb-card>\n  <nb-card-header>\n    Customers\n  </nb-card-header>\n\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"countries\" (deleteConfirm)=\"onDeleteConfirm($event)\" (createConfirm)=\"addRecord($event)\" (editConfirm)=\"updateRecord($event)\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/customers/customers.component.html":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/raw-loader!./src/app/custom/hotel/customers/customers.component.html ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nb-card>\n  <nb-card-header>\n    Customers\n  </nb-card-header>\n\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"customers\" (deleteConfirm)=\"onDeleteConfirm($event)\" (createConfirm)=\"addRecord($event)\" (editConfirm)=\"updateRecord($event)\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+
+/***/ }),
+
 /***/ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/rooms/rooms.component.html":
 /*!***********************************************************************************!*\
   !*** ./node_modules/raw-loader!./src/app/custom/hotel/rooms/rooms.component.html ***!
@@ -18,7 +51,150 @@ module.exports = "<nb-card>\n  <nb-card-header>\n    Room Categories\n  </nb-car
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nb-card>\n  <nb-card-header>\n    Rooms\n  </nb-card-header>\n\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"source\" (deleteConfirm)=\"onDeleteConfirm($event)\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+module.exports = "<nb-card>\n  <nb-card-header>\n    Rooms\n  </nb-card-header>\n\n  <nb-card-body>\n    <ng2-smart-table [settings]=\"settings\" [source]=\"rooms\" (deleteConfirm)=\"onDeleteConfirm($event)\" (createConfirm)=\"addRecord($event)\" (editConfirm)=\"updateRecord($event)\">\n    </ng2-smart-table>\n  </nb-card-body>\n</nb-card>"
+
+/***/ }),
+
+/***/ "./src/app/custom/hotel/bookings/bookings.component.scss":
+/*!***************************************************************!*\
+  !*** ./src/app/custom/hotel/bookings/bookings.component.scss ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2N1c3RvbS9ob3RlbC9ib29raW5ncy9ib29raW5ncy5jb21wb25lbnQuc2NzcyJ9 */"
+
+/***/ }),
+
+/***/ "./src/app/custom/hotel/bookings/bookings.component.ts":
+/*!*************************************************************!*\
+  !*** ./src/app/custom/hotel/bookings/bookings.component.ts ***!
+  \*************************************************************/
+/*! exports provided: BookingsComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BookingsComponent", function() { return BookingsComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var BookingsComponent = /** @class */ (function () {
+    function BookingsComponent(http) {
+        var _this = this;
+        this.http = http;
+        this.settings = {
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
+            edit: {
+                editButtonContent: '<i class="nb-edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmEdit: true,
+            },
+            delete: {
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+                room_number: {
+                    title: 'Booking Number',
+                    type: 'string',
+                },
+                floor: {
+                    title: 'Floor',
+                    type: 'number',
+                },
+                room_description: {
+                    title: 'Description',
+                    type: 'string',
+                },
+            },
+        };
+        this.http.get('http://api.mainahighwayhotel.com/api/bookings').subscribe(function (data) {
+            _this.data = data;
+            _this.bookings = _this.data.response.bookings;
+            console.log(_this.data);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    }
+    BookingsComponent.prototype.onDeleteConfirm = function (event) {
+        if (window.confirm('Are you sure you want to delete?')) {
+            event.confirm.resolve();
+        }
+        else {
+            event.confirm.reject();
+        }
+    };
+    BookingsComponent.prototype.addRecord = function (event) {
+        var data = {
+            'room_number': event.newData.room_number,
+            'floor': event.newData.floor,
+            'description': event.newData.room_description,
+            'room_price': event.newData.room_price,
+        };
+        this.http.post('http://api.mainahighwayhotel.com/api/bookings', data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    BookingsComponent.prototype.updateRecord = function (event) {
+        console.log('ddddd');
+        var data = {
+            'room_number': event.newData.room_number,
+            'floor': event.newData.floor,
+            'description': event.newData.room_description,
+            'room_price': event.newData.room_price,
+            'id': event.newData.id,
+        };
+        this.http.put(this.url + '/' + event.newData.id, data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    BookingsComponent.prototype.ngOnInit = function () {
+    };
+    BookingsComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'ngx-bookings',
+            template: __webpack_require__(/*! raw-loader!./bookings.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/bookings/bookings.component.html"),
+            styles: [__webpack_require__(/*! ./bookings.component.scss */ "./src/app/custom/hotel/bookings/bookings.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], BookingsComponent);
+    return BookingsComponent;
+}());
+
+
 
 /***/ }),
 
@@ -144,7 +320,7 @@ var CategoriesComponent = /** @class */ (function () {
                 category: _this.product.product.product_category,
                 notes: _this.product.product.product_notes,
                 price: _this.product.product.selling_price,
-                quantity: _this.product.product.product_quantity
+                quantity: _this.product.product.product_quantity,
             });
         });
     };
@@ -200,6 +376,308 @@ var CategoriesComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/custom/hotel/countries/countries.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/custom/hotel/countries/countries.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2N1c3RvbS9ob3RlbC9jb3VudHJpZXMvY291bnRyaWVzLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/custom/hotel/countries/countries.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/custom/hotel/countries/countries.component.ts ***!
+  \***************************************************************/
+/*! exports provided: CountriesComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CountriesComponent", function() { return CountriesComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var CountriesComponent = /** @class */ (function () {
+    function CountriesComponent(http) {
+        var _this = this;
+        this.http = http;
+        this.settings = {
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
+            edit: {
+                editButtonContent: '<i class="nb-edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmEdit: true,
+            },
+            delete: {
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+                shortcode: {
+                    title: 'Country Shortcode',
+                    type: 'string',
+                },
+                title: {
+                    title: 'Title',
+                    type: 'string',
+                },
+            },
+        };
+        this.http.get('http://api.mainahighwayhotel.com/api/countries').subscribe(function (data) {
+            _this.data = data;
+            _this.countries = _this.data.response.countries;
+            console.log(_this.data);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    }
+    CountriesComponent.prototype.onDeleteConfirm = function (event) {
+        if (window.confirm('Are you sure you want to delete?')) {
+            event.confirm.resolve();
+        }
+        else {
+            event.confirm.reject();
+        }
+    };
+    CountriesComponent.prototype.addRecord = function (event) {
+        var data = {
+            'shortcode': event.newData.shortcode,
+            'title': event.newData.title,
+        };
+        this.http.post('http://api.mainahighwayhotel.com/api/countries', data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    CountriesComponent.prototype.updateRecord = function (event) {
+        var data = {
+            'shortcode': event.newData.shortcode,
+            'title': event.newData.title,
+        };
+        this.http.put(this.url + '/' + event.newData.id, data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    CountriesComponent.prototype.ngOnInit = function () {
+    };
+    CountriesComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'ngx-countries',
+            template: __webpack_require__(/*! raw-loader!./countries.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/countries/countries.component.html"),
+            styles: [__webpack_require__(/*! ./countries.component.scss */ "./src/app/custom/hotel/countries/countries.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], CountriesComponent);
+    return CountriesComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/custom/hotel/customers/customers.component.scss":
+/*!*****************************************************************!*\
+  !*** ./src/app/custom/hotel/customers/customers.component.scss ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2N1c3RvbS9ob3RlbC9jdXN0b21lcnMvY3VzdG9tZXJzLmNvbXBvbmVudC5zY3NzIn0= */"
+
+/***/ }),
+
+/***/ "./src/app/custom/hotel/customers/customers.component.ts":
+/*!***************************************************************!*\
+  !*** ./src/app/custom/hotel/customers/customers.component.ts ***!
+  \***************************************************************/
+/*! exports provided: CustomersComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomersComponent", function() { return CustomersComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _components_multi_select_multi_select_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/multi-select/multi-select.component */ "./src/app/custom/components/multi-select/multi-select.component.ts");
+
+
+
+
+var CustomersComponent = /** @class */ (function () {
+    function CustomersComponent(http) {
+        var _this = this;
+        this.http = http;
+        this.settings = {
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
+            edit: {
+                editButtonContent: '<i class="nb-edit"></i>',
+                saveButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmEdit: true,
+            },
+            delete: {
+                deleteButtonContent: '<i class="nb-trash"></i>',
+                confirmDelete: true,
+            },
+            columns: {
+                first_name: {
+                    title: 'First Name',
+                    type: 'string',
+                },
+                last_name: {
+                    title: 'Last Name',
+                    type: 'string',
+                },
+                phone: {
+                    title: 'Phone',
+                    type: 'number',
+                },
+                email: {
+                    title: 'Email',
+                    type: 'string',
+                },
+                address: {
+                    title: 'Address',
+                    type: 'string',
+                },
+                // country_id: {
+                //   title: 'Country',
+                //   type: 'number',
+                // },
+                country_id: {
+                    title: 'Multi select',
+                    type: 'html',
+                    editor: {
+                        type: 'custom',
+                        valuePrepareFunction: function (cell, row) { return row; },
+                        component: _components_multi_select_multi_select_component__WEBPACK_IMPORTED_MODULE_3__["MultiSelectComponent"],
+                    },
+                }
+            },
+        };
+        this.http.get('http://api.mainahighwayhotel.com/api/customers').subscribe(function (data) {
+            _this.data = data;
+            _this.customers = _this.data.response.customers;
+            console.log(_this.data);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    }
+    CustomersComponent.prototype.onDeleteConfirm = function (event) {
+        if (window.confirm('Are you sure you want to delete?')) {
+            event.confirm.resolve();
+        }
+        else {
+            event.confirm.reject();
+        }
+    };
+    CustomersComponent.prototype.addRecord = function (event) {
+        var data = {
+            'first_name': event.newData.first_name,
+            'last_name': event.newData.last_name,
+            'phone': event.newData.phone,
+            'address': event.newData.address,
+            'email': event.newData.email,
+            'country_id': event.newData.country_id,
+        };
+        this.http.post('http://api.mainahighwayhotel.com/api/customers', data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    CustomersComponent.prototype.updateRecord = function (event) {
+        console.log('Client-side error occured.');
+        var data = {
+            'first_name': event.newData.first_name,
+            'last_name': event.newData.last_name,
+            'phone': event.newData.phone,
+            'address': event.newData.address,
+            'email': event.newData.email,
+            'country_id': event.newData.country_id,
+        };
+        this.http.put(this.url + '/' + event.newData.id, data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    CustomersComponent.prototype.ngOnInit = function () {
+    };
+    CustomersComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'ngx-customers',
+            template: __webpack_require__(/*! raw-loader!./customers.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/customers/customers.component.html"),
+            styles: [__webpack_require__(/*! ./customers.component.scss */ "./src/app/custom/hotel/customers/customers.component.scss")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], CustomersComponent);
+    return CustomersComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/custom/hotel/hotel-routing.module.ts":
 /*!******************************************************!*\
   !*** ./src/app/custom/hotel/hotel-routing.module.ts ***!
@@ -216,6 +694,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hotel_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hotel.component */ "./src/app/custom/hotel/hotel.component.ts");
 /* harmony import */ var _categories_categories_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./categories/categories.component */ "./src/app/custom/hotel/categories/categories.component.ts");
 /* harmony import */ var _rooms_rooms_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./rooms/rooms.component */ "./src/app/custom/hotel/rooms/rooms.component.ts");
+/* harmony import */ var _customers_customers_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./customers/customers.component */ "./src/app/custom/hotel/customers/customers.component.ts");
+/* harmony import */ var _bookings_bookings_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./bookings/bookings.component */ "./src/app/custom/hotel/bookings/bookings.component.ts");
+/* harmony import */ var _countries_countries_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./countries/countries.component */ "./src/app/custom/hotel/countries/countries.component.ts");
+
+
+
 
 
 
@@ -233,6 +717,18 @@ var routes = [{
             {
                 path: 'rooms',
                 component: _rooms_rooms_component__WEBPACK_IMPORTED_MODULE_5__["RoomsComponent"],
+            },
+            {
+                path: 'customers',
+                component: _customers_customers_component__WEBPACK_IMPORTED_MODULE_6__["CustomersComponent"],
+            },
+            {
+                path: 'bookings',
+                component: _bookings_bookings_component__WEBPACK_IMPORTED_MODULE_7__["BookingsComponent"],
+            },
+            {
+                path: 'countries',
+                component: _countries_countries_component__WEBPACK_IMPORTED_MODULE_8__["CountriesComponent"],
             },
         ],
     }];
@@ -302,6 +798,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _nebular_theme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @nebular/theme */ "./node_modules/@nebular/theme/fesm5/index.js");
 /* harmony import */ var _theme_theme_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../@theme/theme.module */ "./src/app/@theme/theme.module.ts");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
+/* harmony import */ var _customers_customers_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./customers/customers.component */ "./src/app/custom/hotel/customers/customers.component.ts");
+/* harmony import */ var _countries_countries_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./countries/countries.component */ "./src/app/custom/hotel/countries/countries.component.ts");
+/* harmony import */ var _bookings_bookings_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./bookings/bookings.component */ "./src/app/custom/hotel/bookings/bookings.component.ts");
+
+
+
 
 
 
@@ -321,6 +823,9 @@ var HotelModule = /** @class */ (function () {
                 _hotel_component__WEBPACK_IMPORTED_MODULE_4__["HotelComponent"],
                 _categories_categories_component__WEBPACK_IMPORTED_MODULE_5__["CategoriesComponent"],
                 _rooms_rooms_component__WEBPACK_IMPORTED_MODULE_6__["RoomsComponent"],
+                _customers_customers_component__WEBPACK_IMPORTED_MODULE_10__["CustomersComponent"],
+                _countries_countries_component__WEBPACK_IMPORTED_MODULE_11__["CountriesComponent"],
+                _bookings_bookings_component__WEBPACK_IMPORTED_MODULE_12__["BookingsComponent"],
             ],
             imports: [
                 _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
@@ -368,66 +873,81 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ng2-smart-table */ "./node_modules/ng2-smart-table/index.js");
-/* harmony import */ var _core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../@core/data/smart-table */ "./src/app/@core/data/smart-table.ts");
-/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+/* harmony import */ var _services_jarwis_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../services/jarwis.service */ "./src/app/services/jarwis.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 
 
 
 
 
 var RoomsComponent = /** @class */ (function () {
-    function RoomsComponent(service, Jarwis) {
-        this.service = service;
+    function RoomsComponent(
+    // private service: SmartTableData,
+    http, Jarwis) {
+        // this.source = new ServerDataSource(http, { endPoint: 'http://api.mainahighwayhotel.com/api/rooms' });
+        // this.getRooms();
+        // const data = this.service.getData();
+        this.http = http;
         this.Jarwis = Jarwis;
         this.settings = {
-            add: false,
-            // add: {
-            //   addButtonContent: '<i class="nb-plus"></i>',
-            //   createButtonContent: '<i class="nb-checkmark"></i>',
-            //   cancelButtonContent: '<i class="nb-close"></i>',
-            // },
+            mode: 'inline',
+            add: {
+                addButtonContent: '<i class="nb-plus"></i>',
+                createButtonContent: '<i class="nb-checkmark"></i>',
+                cancelButtonContent: '<i class="nb-close"></i>',
+                confirmCreate: true,
+            },
             edit: {
                 editButtonContent: '<i class="nb-edit"></i>',
                 saveButtonContent: '<i class="nb-checkmark"></i>',
                 cancelButtonContent: '<i class="nb-close"></i>',
+                confirmEdit: true,
             },
             delete: {
                 deleteButtonContent: '<i class="nb-trash"></i>',
                 confirmDelete: true,
             },
             columns: {
-                id: {
-                    title: 'ID',
+                room_number: {
+                    title: 'Room Number',
+                    type: 'string',
+                },
+                floor: {
+                    title: 'Floor',
                     type: 'number',
                 },
-                firstName: {
-                    title: 'First Name',
+                room_description: {
+                    title: 'Description',
                     type: 'string',
-                },
-                lastName: {
-                    title: 'Last Name',
-                    type: 'string',
-                },
-                username: {
-                    title: 'Username',
-                    type: 'string',
-                },
-                email: {
-                    title: 'E-mail',
-                    type: 'string',
-                },
-                age: {
-                    title: 'Age',
-                    type: 'number',
                 },
             },
         };
         this.source = new ng2_smart_table__WEBPACK_IMPORTED_MODULE_2__["LocalDataSource"]();
-        var data = this.service.getData();
-        this.source.load(data);
+        // this.data = this.Jarwis.getURI('rooms').subscribe(rooms => {
+        //   this.rooms = rooms;
+        //   // this.rooms = this.rooms.response;
+        //   this.source.load(this.rooms.response);
+        //   // console.log(this.rooms);
+        //   // this.source.load(data);
+        // });
+        // console.log(data);
     }
     RoomsComponent.prototype.ngOnInit = function () {
-        this.getRooms();
+        var _this = this;
+        // this.getRooms();
+        this.http.get('http://api.mainahighwayhotel.com/api/rooms').subscribe(function (data) {
+            _this.data = data;
+            _this.rooms = _this.data.response.rooms;
+            console.log(_this.data);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
     };
     RoomsComponent.prototype.onDeleteConfirm = function (event) {
         if (window.confirm('Are you sure you want to delete?')) {
@@ -437,11 +957,53 @@ var RoomsComponent = /** @class */ (function () {
             event.confirm.reject();
         }
     };
+    RoomsComponent.prototype.addRecord = function (event) {
+        var data = {
+            'room_number': event.newData.room_number,
+            'floor': event.newData.floor,
+            'description': event.newData.room_description,
+            'room_price': event.newData.room_price,
+        };
+        this.http.post('http://api.mainahighwayhotel.com/api/rooms', data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            console.log(err);
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
+    RoomsComponent.prototype.updateRecord = function (event) {
+        console.log('ddddd');
+        var data = {
+            'room_number': event.newData.room_number,
+            'floor': event.newData.floor,
+            'description': event.newData.room_description,
+            'room_price': event.newData.room_price,
+            'id': event.newData.id,
+        };
+        this.http.put(this.url + '/' + event.newData.id, data).subscribe(function (res) {
+            console.log(res);
+            event.confirm.resolve(event.newData);
+        }, function (err) {
+            if (err.error instanceof Error) {
+                console.log('Client-side error occured.');
+            }
+            else {
+                console.log('Server-side error occured.');
+            }
+        });
+    };
     RoomsComponent.prototype.getRooms = function () {
         var _this = this;
         var url = 'rooms';
         this.Jarwis.getURI(url).subscribe(function (rooms) {
             _this.rooms = rooms;
+            // this.dataSource(this.rooms.response)
             console.log(rooms);
         });
     };
@@ -458,7 +1020,7 @@ var RoomsComponent = /** @class */ (function () {
                 category: _this.product.product.product_category,
                 notes: _this.product.product.product_notes,
                 price: _this.product.product.selling_price,
-                quantity: _this.product.product.product_quantity
+                quantity: _this.product.product.product_quantity,
             });
         });
     };
@@ -504,8 +1066,8 @@ var RoomsComponent = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./rooms.component.html */ "./node_modules/raw-loader/index.js!./src/app/custom/hotel/rooms/rooms.component.html"),
             styles: [__webpack_require__(/*! ./rooms.component.scss */ "./src/app/custom/hotel/rooms/rooms.component.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_core_data_smart_table__WEBPACK_IMPORTED_MODULE_3__["SmartTableData"],
-            _services_jarwis_service__WEBPACK_IMPORTED_MODULE_4__["JarwisService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClient"],
+            _services_jarwis_service__WEBPACK_IMPORTED_MODULE_3__["JarwisService"]])
     ], RoomsComponent);
     return RoomsComponent;
 }());
